@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routiva AI - دفترچه یادداشت</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Tahoma, sans-serif; }
+    body { background: #f4f6fb; padding: 30px; }
+    .container { max-width: 700px; margin: 0 auto; background: #fff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    h1 { color: #2c3e50; margin-bottom: 10px; font-size: 22px; }
+    p.sub { color: #7f8c8d; margin-bottom: 20px; font-size: 14px; }
+    textarea {
+      width: 100%; height: 140px; padding: 15px; border: 2px solid #e1e8ed;
+      border-radius: 12px; font-size: 15px; resize: vertical; outline: none;
+    }
+    textarea:focus { border-color: #4a90e2; }
+    button {
+      margin-top: 15px; background: #4a90e2; color: #fff; border: none;
+      padding: 12px 24px; border-radius: 10px; font-size: 15px; cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover { background: #357abd; }
+    #result {
+      margin-top: 20px; padding: 15px; border-radius: 12px;
+      background: #eafaf1; border-right: 4px solid #27ae60; display: none;
+    }
+    #result h3 { color: #27ae60; font-size: 16px; margin-bottom: 8px; }
+    #result ul { list-style: none; }
+    #result li { padding: 6px 0; color: #2c3e50; font-size: 14px; }
+    .back { display: inline-block; margin-bottom: 15px; color: #4a90e2; text-decoration: none; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="home.html" class="back">← بازگشت به صفحه اصلی</a>
+    <h1>📝 دفترچه یادداشت</h1>
+    <p class="sub">یادداشتت رو بنویس، ما تبدیلش می‌کنیم به تسک قابل پیگیری.</p>
+
+    <textarea id="noteInput" placeholder="مثال: فردا ساعت ۵ دکتر دارم"></textarea>
+    <button onclick="convertToTask()">✨ تبدیل به تسک با هوش مصنوعی</button>
+
+    <div id="result">
+      <h3>✅ تسک ساخته شد:</h3>
+      <ul id="taskList"></ul>
+    </div>
+  </div>
+
+  <script>
+    function convertToTask() {
+      const input = document.getElementById('noteInput').value.trim();
+      const result = document.getElementById('result');
+      const taskList = document.getElementById('taskList');
+
+      if (!input) {
+        alert('لطفاً اول یه یادداشت بنویس!');
+        return;
+      }
+
+      // شبیه‌سازی ساده هوش مصنوعی (نمایشی)
+      taskList.innerHTML = '';
+      const fakeTasks = [
+        '📌 عنوان: ' + input,
+        '⏰ زمان: مشخص شده (فردا ساعت ۵)',
+        '🔔 وضعیت: در انتظار انجام',
+        '👤 مسئول: خودت'
+      ];
+
+      fakeTasks.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        taskList.appendChild(li);
+      });
+
+      result.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
