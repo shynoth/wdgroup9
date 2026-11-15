@@ -11,7 +11,7 @@
 - **سرگروه: shynoth
 - **عضو ۱: ilyagoodarzi
 - **عضو ۲: amirhossein85ch-blip
-- **عضو ۳: omid_maleki
+- **عضو ۳: omidmx
 
 ## 🗂 معماری و تقسیم وظایف
 - `index.html` - صفحه لودینگ (Splash Screen)
