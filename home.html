@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routiva AI — صفحه اصلی</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    /* ===== متغیرهای fallback (اگه توی global.css نبودن) ===== */
+    :root {
+      --bg: #0f1115;
+      --card: #171a21;
+      --accent: #6c5ce7;
+      --text: #eaeaea;
+      --muted: #9aa0a6;
+      --radius: 14px;
+      --font: system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body.home-body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ===== هدر ===== */
+    .home-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(23, 26, 33, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .home-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      background: linear-gradient(90deg, var(--accent), #a29bfe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .home-menu-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text);
+      font-size: 1.4rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .home-menu-btn:hover { background: rgba(108, 92, 231, 0.2); }
+    .home-menu-btn:active { transform: scale(0.95); }
+
+    /* ===== منوی کشویی از راست ===== */
+    .home-side-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background: var(--card);
+      padding: 80px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      box-shadow: -8px 0 30px rgba(0,0,0,0.4);
+    }
+    .home-side-menu.open { right: 0; }
+
+    .home-side-menu a {
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .home-side-menu a:hover {
+      background: var(--accent);
+      transform: translateX(-4px);
+    }
+
+    /* پس‌زمینه تاریک وقتی منو بازه */
+    .home-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 90;
+    }
+    .home-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ===== محتوای اصلی ===== */
+    .home-main {
+      padding: 40px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .home-hero h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    .home-hero p {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    /* ===== کارت‌های خلاصه ===== */
+    .home-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .home-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .home-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(108, 92, 231, 0.15);
+    }
+
+    .home-card h3 {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .home-card .home-count {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ===== ریسپانسیو موبایل ===== */
+    @media (max-width: 600px) {
+      .home-main { padding: 24px 16px; }
+      .home-hero h1 { font-size: 1.4rem; }
+      .home-header { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body class="home-body">
+
+  <!-- هدر -->
+  <header class="home-header">
+    <div class="home-logo">Routiva AI</div>
+    <button id="menuBtn" class="home-menu-btn" aria-label="باز کردن منو">☰</button>
+  </header>
+
+  <!-- منوی کناری -->
+  <div id="overlay" class="home-overlay"></div>
+  <aside id="sideMenu" class="home-side-menu">
+    <a href="notes.html">📝 دفترچه یادداشت</a>
+    <a href="reminders.html">⏰ یادآوری‌ها</a>
+    <a href="index.html">🏠 صفحه اصلی</a>
+  </aside>
+
+  <!-- محتوا -->
+  <main class="home-main">
+    <section class="home-hero">
+      <h1>سلام 👋</h1>
+      <p>امروز چه کاری برات داریم؟</p>
+    </section>
+
+    <section class="home-cards">
+      <div class="home-card" onclick="location.href='notes.html'">
+        <h3>یادداشت‌ها</h3>
+        <div class="home-count" id="notesCount">۰</div>
+      </div>
+      <div class="home-card" onclick="location.href='reminders.html'">
+        <h3>یادآوری‌ها</h3>
+        <div class="home-count" id="tasksCount">۰</div>
+      </div>
+      <div class="home-card">
+        <h3>ماموریت‌ها</h3>
+        <div class="home-count">به‌زودی</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ===== منو =====
+    const menuBtn = document.getElementById('menuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+
+    function toggleMenu() {
+      sideMenu.classList.toggle('open');
+      overlay.classList.toggle('show');
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // بستن منو با کلید Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        sideMenu.classList.remove('open');
+        overlay.classList.remove('show');
+      }
+    });
+
+    // ===== شمارنده‌ها از localStorage =====
+    // کلیدها باید با امید (Notes) و سرگروه (Reminders) هماهنگ باشن
+    function updateCounts() {
+      const tasks = JSON.parse(localStorage.getItem('routiva_tasks') || '[]');
+      const notes = JSON.parse(localStorage.getItem('routiva_notes') || '[]');
+
+      document.getElementById('tasksCount').textContent =
+        tasks.length.toLocaleString('fa-IR');
+      document.getElementById('notesCount').textContent =
+        notes.length.toLocaleString('fa-IR');
+    }
+
+    updateCounts();
+  </script>
+</body>
+</html>
